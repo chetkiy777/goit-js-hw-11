@@ -44,8 +44,14 @@ a {
 
   border: none;
   border-radius: 12px;
-  background-color: #0000ff;
+  background-color: #00bfff;
   color: #fff;
+}
+
+.load-more:focus,
+.load-more:hover {
+  background-color: #1e90ff;
+  box-shadow: inset 3px 3px 3px #1e90ffgfz;
 }
 
 .load-more.is-hidden {
@@ -78,7 +84,7 @@ a {
 
 .header {
   width: 100%;
-  background-color: #0000ff;
+  background-color: #00bfff;
 }
 
 .gallery {
@@ -100,3 +106,5 @@ a {
 .info {
   padding: 0 10px 0 10px;
 }
+
+

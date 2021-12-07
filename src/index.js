@@ -1,31 +1,45 @@
-import { api } from './api/Api.js';
+import PixabayApi from './axios/pixabay-api.js'
 import renderGallery from './js/renderGallery.js';
 
-const form = document.querySelector('.search-form');
-const loadMoreBtn = document.querySelector('[data-load]')
+const pixabayApiService = new PixabayApi()
 
-form.addEventListener('submit', onSearch);
-
-function onSearch(e) {
-    e.preventDefault()
-    const form = e.currentTarget
-    const inputValue = form.elements.searchQuery.value
-
-    api.fetchImage(inputValue).then(data => {
-        return data.hits
-    }).then(renderGallery)
-    
-    loadMoreBtn.classList.remove('is-hidden')
+const refs = {
+     form: document.querySelector('.search-form'),
+     loadMoreBtn: document.querySelector('[data-load]'),
+     galleryContainer: document.querySelector('.gallery'),
 }
 
-loadMoreBtn.addEventListener('click', () => {
-    const inputValue = form.elements.searchQuery.value
+
+refs.form.addEventListener('submit', onSearch);
+refs.loadMoreBtn.addEventListener('click', onLoad)
+refs.galleryContainer.addEventListener('click', onFullScreen)
+
+async function onSearch(e) {
+    e.preventDefault()
+    
+    pixabayApiService.searchQuery = e.currentTarget.elements.searchQuery.value
+    pixabayApiService.resetPage()
+    await pixabayApiService.fetchImages().then(renderGallery)
 
 
-    api.fetchImage(inputValue, page += 1).then(data => {
-        return data.hits
-    }).then(renderGallery)
-})
+    // api.fetchImage(inputValue).then(data => {
+    //     return data.hits
+    // }).then(renderGallery)
+
+}
+
+async function onLoad() {
+   await pixabayApiService.fetchImages().then(renderGallery)
+}
+
+function onFullScreen(e) {
+    // e.currentTarget.nodeName === 'IMG' && console.log(e)
+    if (e.currentTarget.nodeName === IMG) {
+        console.log(e.currentTarget)
+    }
+}
+
+
 
 
 

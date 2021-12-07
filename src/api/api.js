@@ -8,9 +8,6 @@ const per_page = 40
 export const api = {
     fetchImage(inputValue, page = 1) {
         return axios.get(`${url}?key=${apiKey}&q=${inputValue}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${per_page}`)
-            .then(response => response.data).then(data => {
-                return data
-            }
-        )
+            .then(response => response.data)
     }
 }

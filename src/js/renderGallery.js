@@ -2,13 +2,13 @@ import cleanGallery from "./cleanGallery"
 
 const galleryContainer = document.querySelector('.gallery')
 
-export default function renderGallery(objArray) {
+export default async function renderGallery(objArray) {
     cleanGallery()
-    objArray.map(obj => {
+   await objArray.map(obj => {
         const { webformatURL, largeImageURL, tags, likes, views, comments, downloads } = obj
         const markup = `
             <div class="photo-card">
-                <img src=${webformatURL} alt="${tags}" loading="lazy" />
+                <img class="photos" src=${webformatURL} alt="${tags}" loading="lazy" />
 
                 <div class="info">
                     <p class="info-item">
@@ -27,7 +27,8 @@ export default function renderGallery(objArray) {
                 </div>
             </div>
             `
-        galleryContainer.insertAdjacentHTML('afterbegin',markup)
+        galleryContainer.insertAdjacentHTML('beforeend',markup)
+    
     })
 }
 
