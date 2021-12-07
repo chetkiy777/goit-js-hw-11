@@ -1,49 +1,32 @@
-import './css/styles.css';
+import { api } from './api/Api.js';
+import renderGallery from './js/renderGallery.js';
 
-import { debounce } from 'lodash'
-import { Notify } from 'notiflix'
+const form = document.querySelector('.search-form');
+const loadMoreBtn = document.querySelector('[data-load]')
 
-import Country from './api/api.js'
-import renderCountryInfo from './js/renderInfo';
-import renderCountryList from './js/renderList';
-import clearList from './js/cleanList';
+form.addEventListener('submit', onSearch);
 
-const DEBOUNCE_DELAY = 300;
+function onSearch(e) {
+    e.preventDefault()
+    const form = e.currentTarget
+    const inputValue = form.elements.searchQuery.value
 
-const inputField = document.querySelector('#search-box')
+    api.fetchImage(inputValue).then(data => {
+        return data.hits
+    }).then(renderGallery)
+    
+    loadMoreBtn.classList.remove('is-hidden')
+}
 
-const CountryAPI = new Country()
+loadMoreBtn.addEventListener('click', () => {
+    const inputValue = form.elements.searchQuery.value
 
 
-inputField.addEventListener('input', debounce(() => {
-  
-  let inputValue = inputField.value.trim()
-  CountryAPI.query = inputValue
-  const minLetter = inputValue.split('').length
+    api.fetchImage(inputValue, page += 1).then(data => {
+        return data.hits
+    }).then(renderGallery)
+})
 
-  // Проверка на количество введенных букв
-  if (minLetter >= 1) {
-    CountryAPI.fetchCountry()
-      .then(countrysArray => {
 
-        // Проверка если в массиве более 10 стран
-        if (countrysArray.length >= 10) {
-          return Notify.info('Too many matches found. Please enter a more specific name')
-          // Проверка если в массиве 1 страна - рендерим её инфо
-        } else if (countrysArray.length === 1) {
-          console.log(countrysArray)
-          renderCountryInfo(countrysArray)
-          // Проверка если в массиве стран больше 1 и меньше 10 - рендерим список стран
-        } else if (countrysArray.length < 10 && countrysArray.length >= 2) {
-          renderCountryList(countrysArray)
-        } else {
-          return Notify.failure('Oops, there is no country with that name')
-        }
-      })
-      .catch(error => console.log(error))
-    // Очистка всего контента , если в инпуте пустая строка
-  } else if (minLetter === 0) {
-    clearList()
-  }
-    }, DEBOUNCE_DELAY))
+
 

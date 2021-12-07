@@ -1,19 +1,16 @@
-export default class Country {
-    constructor() {
-        this.searchQuery = '';
-    }
+import axios from "axios";
 
-    fetchCountry() {
-        const url = `https://restcountries.com/v2/name/${this.searchQuery}?fields=name,capital,population,languages,flags`
-        return fetch(url).then(r => {return r.json()})
-    }
 
-    get query() {
-        return this.searchQuery;
-    }
+const apiKey = '24684226-fad981b2aba9a8597288ef8d8'
+const url = 'https://pixabay.com/api/'
+const per_page = 40
 
-    set query(newQuery) {
-        this.searchQuery = newQuery;
+export const api = {
+    fetchImage(inputValue, page = 1) {
+        return axios.get(`${url}?key=${apiKey}&q=${inputValue}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${per_page}`)
+            .then(response => response.data).then(data => {
+                return data
+            }
+        )
     }
-
 }

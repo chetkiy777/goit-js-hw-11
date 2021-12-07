@@ -5,13 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/styles.css">
-    <title>Homework 10</title>
+    <title>Homework 11</title>
   </head>
   <body>
-    <input type="text" id="search-box" />
-    <ul class="country-list"></ul>
-    <div class="country-info"></div>
+    <header class="header">
+      <form class="search-form" id="search-form">
+        <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+        <button type="submit">GO</button>
+      </form>
+    </header>
 
+    <div class="gallery"></div>
+
+    <button type="button" class="load-more is-hidden" data-load>Load more</button>
+    
     <script src="index.js"></script>
   </body>
 </html>

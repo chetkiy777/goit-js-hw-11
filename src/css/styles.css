@@ -7,16 +7,9 @@ body {
     'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffefd5;
+  background-color: #fefefe;
   color: #212121;
   line-height: 1.5;
-}
-
-#search-box {
-  font: inherit;
-  padding: 8px;
-  max-width: 320px;
-  margin-bottom: 16px;
 }
 
 img {
@@ -25,50 +18,85 @@ img {
   height: auto;
 }
 
-ul {
-  list-style: none;
+button {
+  font-family: inherit;
   margin: 0;
   padding: 0;
 }
 
-.country-list {
+ul {
+  list-style: none;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.load-more {
+  font-family: inherit;
+  display: inline-block;
+  text-align: center;
+  height: 40px;
+  width: 140px;
+  margin-left: 40%;
+
+  border: none;
+  border-radius: 12px;
+  background-color: #0000ff;
+  color: #fff;
+}
+
+.load-more.is-hidden {
+  display: none;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.search-form > input {
+  border-radius: 4px;
+  padding: 4px 0 4px 4px;
+  width: 300px;
+}
+
+.search-form > button {
+  font-weight: bold;
+  display: inline-block;
+  height: 20px;
+  width: 25px;
+  transform: translateX(-28px);
+  border: none;
+  cursor: pointer;
+}
+
+.header {
+  width: 100%;
+  background-color: #0000ff;
+}
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  padding: 10px;
+}
+
+.photo-card {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  flex-basis: calc(100% / 4 - 80px);
+  margin: 10px;
+  outline: 1px solid black;
 }
 
-.list__item {
-  display: flex;
-  align-items: center;
-}
-
-.list__img-thumb {
-  display: inline-block;
-  width: 20px;
-  margin-right: 10px;
-}
-
-.list__text {
-  font-size: 16px;
-  line-height: 0.8;
-}
-
-.card {
-  font-size: 16px;
-  line-height: 0.9;
-}
-
-.card__title {
-  margin-left: 10px;
-}
-
-.card__img-thumb {
-  display: flex;
-}
-
-.card__img-thumb > img {
-  width: 70px;
-  height: auto;
-}
-
-.card__item {
+.info {
+  padding: 0 10px 0 10px;
 }
