@@ -1,50 +1,33 @@
-import PixabayApi from './axios/pixabay-api.js'
-import renderGallery from './js/renderGallery.js';
+import ApiService from "./js/apiService"
+import renderService from "./js/renderService"
+import Notiflix from "notiflix"
 
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
-
-// var lightbox = new SimpleLightbox('.photo-card a', { /* options */ });
-
-
-const pixabayApiService = new PixabayApi()
+const api = new ApiService()
+const renderMaker = new renderService()
 
 const refs = {
-     form: document.querySelector('.search-form'),
-     loadMoreBtn: document.querySelector('[data-load]'),
-     galleryContainer: document.querySelector('.gallery'),
+    form: document.querySelector('.search-form'),
+    loadMoreBtn: document.querySelector('.load-more'),
+    galleryContainer: document.querySelector('.gallery'),
 }
 
+refs.form.addEventListener('submit', renderImage)
+refs.loadMoreBtn.addEventListener('click', loadMore)
 
-refs.form.addEventListener('submit', onSearch);
-refs.loadMoreBtn.addEventListener('click', onLoad)
-refs.galleryContainer.addEventListener('click', onFullScreen)
-
-async function onSearch(e) {
+ function renderImage (e) {
     e.preventDefault()
-    
-    pixabayApiService.searchQuery = e.currentTarget.elements.searchQuery.value
-    pixabayApiService.resetPage()
-    await pixabayApiService.fetchImages().then(renderGallery)
-    isLoadBtnVisible()
-}
+     api.searchQuery = e.currentTarget.elements.searchQuery.value
 
-async function onLoad() {
-   await pixabayApiService.fetchImages().then(renderGallery)
-}
-
-function onFullScreen(e) {
-    if (e.target.nodeName === 'IMG') {
-        console.log(e)
+    if (api.searchQuery === '') {
+        return Notiflix.Notify.info('Введите корректные данные!')
     }
+         
+     renderMaker.clearGallery()
+     api.fetchImages()
+         .then(renderMaker.renderImages)
+         .then(() => renderMaker.showLoadBtn())
 }
 
-function isLoadBtnVisible() {
-    refs.loadMoreBtn.classList.toggle('is-hidden')
+function loadMore () {
+    api.fetchImages().then(renderMaker.renderImages)
 }
-
-
-
-
-
-

@@ -38,23 +38,24 @@ a {
   font-family: inherit;
   display: inline-block;
   text-align: center;
-  height: 40px;
-  width: 140px;
+  height: 50px;
+  width: 180px;
   margin-left: 40%;
+  margin-top: 20px;
 
   border: none;
   border-radius: 8px;
   background-color: #00bfff;
 
-  font-weight: bold;
+  font-weight: 700;
   color: #000;
 }
 
 .load-more:focus,
 .load-more:hover {
-  background-color: #000;
-  color: #1e90ff;
-  box-shadow: inset 3px 3px 3px #000;
+  background-color: coral;
+  color: #000;
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.4) inset;
 }
 
 .load-more.is-hidden {
@@ -73,21 +74,36 @@ a {
   border-radius: 4px;
   padding: 4px 0 4px 4px;
   width: 300px;
+
+  border: 2px solid black;
+}
+
+.search-form > input:hover {
+  border: 2px solid #1e90ff;
 }
 
 .search-form > button {
-  font-weight: bold;
+  font-weight: 700;
   display: inline-block;
   height: 20px;
   width: 25px;
-  transform: translateX(-28px);
-  border: none;
+  transform: translateX(-30px);
   cursor: pointer;
+
+  border: none;
+  border-radius: 4px;
+  color: coral;
+  background-color: #000;
+}
+
+.search-form > button:hover,
+.search-form > button:focus {
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
 }
 
 .header {
   width: 100%;
-  background-color: #00bfff;
+  background-color: coral;
 }
 
 .gallery {
@@ -95,17 +111,21 @@ a {
   justify-content: center;
   flex-flow: row wrap;
   padding: 10px;
+  margin-top: -10px;
+  margin-right: -10px;
 }
 
-.photo-card {
+.card {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  flex-basis: calc(100% / 5 - 100px);
-  margin: 10px;
-  outline: 1px solid black;
+  flex-basis: calc(100% / 5 - 30px);
+  margin-top: 20px;
+  margin-right: 20px;
+
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 }
 
-.info {
-  padding: 0 10px 0 10px;
+.img__thumb {
+  overflow: hidden;
 }
