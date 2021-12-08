@@ -1,6 +1,9 @@
-import cleanGallery from "./cleanGallery"
+import cleanGallery from "./cleanGallery";
 
 const galleryContainer = document.querySelector('.gallery')
+
+
+
 
 export default async function renderGallery(objArray) {
     cleanGallery()
@@ -8,7 +11,9 @@ export default async function renderGallery(objArray) {
         const { webformatURL, largeImageURL, tags, likes, views, comments, downloads } = obj
         const markup = `
             <div class="photo-card">
-                <img class="photos" src=${webformatURL} alt="${tags}" loading="lazy" />
+                <a href=${largeImageURL}>    
+                    <img class="photos" src=${webformatURL} alt=${tags} data-source=${largeImageURL} loading="lazy" title=${tags}/>
+                </a>
 
                 <div class="info">
                     <p class="info-item">

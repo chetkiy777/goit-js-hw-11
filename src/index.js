@@ -1,6 +1,12 @@
 import PixabayApi from './axios/pixabay-api.js'
 import renderGallery from './js/renderGallery.js';
 
+// import SimpleLightbox from 'simplelightbox';
+// import 'simplelightbox/dist/simple-lightbox.min.css';
+
+// var lightbox = new SimpleLightbox('.photo-card a', { /* options */ });
+
+
 const pixabayApiService = new PixabayApi()
 
 const refs = {
@@ -20,12 +26,7 @@ async function onSearch(e) {
     pixabayApiService.searchQuery = e.currentTarget.elements.searchQuery.value
     pixabayApiService.resetPage()
     await pixabayApiService.fetchImages().then(renderGallery)
-
-
-    // api.fetchImage(inputValue).then(data => {
-    //     return data.hits
-    // }).then(renderGallery)
-
+    isLoadBtnVisible()
 }
 
 async function onLoad() {
@@ -33,10 +34,13 @@ async function onLoad() {
 }
 
 function onFullScreen(e) {
-    // e.currentTarget.nodeName === 'IMG' && console.log(e)
-    if (e.currentTarget.nodeName === IMG) {
-        console.log(e.currentTarget)
+    if (e.target.nodeName === 'IMG') {
+        console.log(e)
     }
+}
+
+function isLoadBtnVisible() {
+    refs.loadMoreBtn.classList.toggle('is-hidden')
 }
 
 
