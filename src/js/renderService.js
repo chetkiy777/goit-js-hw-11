@@ -16,25 +16,25 @@ export default class renderService {
 
                         <li class="img-info__item">
                             <p class="img-info__text">
-                            'просмотров: ' ${likes}
+                                <b>likes</b> ${likes}
                             </p>
                         </li>
 
                         <li class="img-info__item">
                             <p class="img-info__text">
-                            'комментариев: ' ${comments}
+                                <b>comments</b> ${comments}
                             </p>
                         </li>
 
                         <li class="img-info__item">
                             <p class="img-info__text">
-                            'загрузок: ' ${downloads}
+                                <b>downloads</b> ${downloads}
                             </p>
                         </li>
 
                         <li class="img-info__item">
                             <p class="img-info__text">
-                            'просмотров: ' ${views}
+                                <b>views</b> ${views}
                             </p>
                         </li>
 

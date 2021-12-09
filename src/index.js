@@ -14,19 +14,23 @@ const refs = {
 refs.form.addEventListener('submit', renderImage)
 refs.loadMoreBtn.addEventListener('click', loadMore)
 
- function renderImage (e) {
+function renderImage(e) {
     e.preventDefault()
-     api.searchQuery = e.currentTarget.elements.searchQuery.value
+    api.searchQuery = e.currentTarget.elements.searchQuery.value
 
     if (api.searchQuery === '') {
         return Notiflix.Notify.info('Введите корректные данные!')
     }
          
-     renderMaker.clearGallery()
-     api.fetchImages()
-         .then(renderMaker.renderImages)
-         .then(() => renderMaker.showLoadBtn())
+    renderMaker.clearGallery()
+
+
+    api.fetchImages()
+        .then(renderMaker.renderImages)
+        .then(() => renderMaker.showLoadBtn())
+        .catch(error => Notiflix.Notify.warning('Sorry, there are no images matching your search query. Please try again.'))
 }
+     
 
 function loadMore () {
     api.fetchImages().then(renderMaker.renderImages)
