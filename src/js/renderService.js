@@ -1,10 +1,11 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import Notiflix from 'notiflix';
 
 export default class renderService {
 
     renderImages(objArray) {
-        const markup = objArray.map(({  webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+            const markup = objArray.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
             return `
                 <article class="card">
                     <div class="img__thumb">
@@ -47,8 +48,6 @@ export default class renderService {
         
         var lightbox = new SimpleLightbox('.gallery a', { /* options */ });
         lightbox.refresh()
-
-        
     }
     
     clearGallery() {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Notiflix from "notiflix";
 
 const instance = axios.create({
     baseURL: 'https://pixabay.com/api/',
@@ -14,7 +15,7 @@ export default class ApiService {
         this.searchQuery = '';
         this.page = 1;
         this.per_page = 40;
-        
+        this.totalHits = 0;
     }
 
     get query() {
@@ -25,6 +26,14 @@ export default class ApiService {
         this.searchQuery = newQuery;
     }
 
+    get hits() {
+        return this.totalHits;
+    }
+
+    set hits(newValue) {
+        this.totalHits = newValue
+    }
+
     incrementPage() {
         this.page += 1;
     }
@@ -33,11 +42,18 @@ export default class ApiService {
         this.page = 1;
     }
 
-   async fetchImages() {
+    async fetchImages() {
+        this.resetPage()
+       console.log(this)
         return await instance.get(`?key=${this._apiKey}&q=${this.searchQuery}&page=${this.page}&per_page=${this.per_page}&image_type=photo&orientation=horizontal&safesearch=true`)
             .then(response => {
                 this.incrementPage()
-                return response.data.hits
-        })
+                this.totalHits = response.data.totalHits
+                return response.data.hits})
+            .catch(error => Notiflix.Notify.warning(error))
     }
+
+
+
+    
 }

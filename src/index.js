@@ -20,18 +20,30 @@ function renderImage(e) {
 
     if (api.searchQuery === '') {
         return Notiflix.Notify.info('Введите корректные данные!')
-    }
+    }  
          
     renderMaker.clearGallery()
 
 
     api.fetchImages()
-        .then(renderMaker.renderImages)
+        .then(hits => {
+            if (hits.length === 0) {
+                return  Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')
+                
+            }
+
+            renderMaker.renderImages(hits)
+              Notiflix.Notify.success(`Hooray! We found ${api.totalHits} images.`)
+        }) 
         .then(() => renderMaker.showLoadBtn())
-        .catch(error => Notiflix.Notify.warning('Sorry, there are no images matching your search query. Please try again.'))
+        
+    
 }
      
 
-function loadMore () {
+function loadMore() {
+
     api.fetchImages().then(renderMaker.renderImages)
 }
+
+
