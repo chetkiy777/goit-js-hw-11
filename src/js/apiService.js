@@ -2,8 +2,8 @@ import axios from "axios";
 import Notiflix from "notiflix";
 
 const instance = axios.create({
-    baseURL: 'https://pixabay.com/api/',
-    headers: {'Content-Type': 'application/json'}
+        baseURL: 'https://pixabay.com/api/',
+        headers: {'Content-Type': 'application/json'}
     })
 
 
@@ -42,18 +42,20 @@ export default class ApiService {
         this.page = 1;
     }
 
-    async fetchImages() {
-        this.resetPage()
-       console.log(this)
-        return await instance.get(`?key=${this._apiKey}&q=${this.searchQuery}&page=${this.page}&per_page=${this.per_page}&image_type=photo&orientation=horizontal&safesearch=true`)
-            .then(response => {
-                this.incrementPage()
-                this.totalHits = response.data.totalHits
-                return response.data.hits})
-            .catch(error => Notiflix.Notify.warning(error))
+    decrementTotalHits() {
+        this.totalHits -= (this.page * this.per_page)
     }
 
+    async fetchImages() {
+        console.log(this)
+        return await instance.get(`?key=${this._apiKey}&q=${this.searchQuery}&page=${this.page}&per_page=${this.per_page}&image_type=photo&orientation=horizontal&safesearch=true`)
+            .then(response => {
+                this.hits = response.data.totalHits
 
-
-    
+                this.decrementTotalHits()
+                return response.data
+            }
+        )
+            .catch(error => Notiflix.Notify.warning(error))
+    }
 }

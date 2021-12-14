@@ -1,6 +1,5 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import Notiflix from 'notiflix';
 
 export default class renderService {
 
@@ -56,6 +55,10 @@ export default class renderService {
 
     showLoadBtn() {
         document.querySelector('.load-more').classList.remove('is-hidden')
+    }
+
+    hideLoadBtn() {
+        document.querySelector('.load-more').classList.add('is-hidden')
     }
 
 }
