@@ -20,13 +20,17 @@ function renderImage(e) {
     e.preventDefault()
     api.resetPage()
     renderMaker.hideLoadBtn()
-    api.searchQuery = e.currentTarget.elements.searchQuery.value
+    api.searchQuery = e.currentTarget.elements.searchQuery.value.trim()
+    
+    if (api.searchQuery === '') {
+        return
+    }
     
     renderMaker.clearGallery()
 
     api.fetchImages()
         .then(data => {
-            if (data.hits === 0 || api.searchQuery === '') {
+            if (data.totalHits === 0) {
                 return Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')    
             }
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)   
