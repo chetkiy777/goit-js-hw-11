@@ -53,12 +53,12 @@ export default class renderService {
         document.querySelector('.gallery').textContent = ''
     }
 
-    showLoadBtn() {
-        document.querySelector('.load-more').classList.remove('is-hidden')
-    }
+    // showLoadBtn() {
+    //     document.querySelector('.load-more').classList.remove('is-hidden')
+    // }
 
-    hideLoadBtn() {
-        document.querySelector('.load-more').classList.add('is-hidden')
-    }
+    // hideLoadBtn() {
+    //     document.querySelector('.load-more').classList.add('is-hidden')
+    // }
 
 }

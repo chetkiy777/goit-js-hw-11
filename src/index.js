@@ -9,13 +9,13 @@ const renderMaker = new renderService()
 
 const refs = {
     form: document.querySelector('.search-form'),
-    loadMoreBtn: document.querySelector('.load-more'),
+    // loadMoreBtn: document.querySelector('.load-more'),
     galleryContainer: document.querySelector('.gallery'),
     fetchDataBtn: document.querySelector('[data-load="getData"]'),
 }
 
 refs.form.addEventListener('submit', renderImage)
-refs.loadMoreBtn.addEventListener('click', loadMore)
+// refs.loadMoreBtn.addEventListener('click', loadMore)
 
 
 function  onScroll() {  
@@ -36,7 +36,7 @@ function  onScroll() {
 function renderImage(e) {
     e.preventDefault()
     api.resetPage()
-    renderMaker.hideLoadBtn()
+    // renderMaker.hideLoadBtn()
     api.searchQuery = e.currentTarget.elements.searchQuery.value.trim()
     
     if (api.searchQuery === '') {
@@ -53,7 +53,7 @@ function renderImage(e) {
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)   
             renderMaker.renderImages(data.hits)
             api.incrementPage()
-            renderMaker.showLoadBtn()
+            // renderMaker.showLoadBtn()
             window.addEventListener('scroll', debounce(onScroll, 500))
         })     
     }
@@ -61,13 +61,13 @@ function renderImage(e) {
 function loadMore() {
   
     if (api.totalHits < 0) {
-            renderMaker.hideLoadBtn()
+            // renderMaker.hideLoadBtn()
             return Notiflix.Notify.info('We&#x60;re sorry, but you&#x60;ve reached the end of search results.')
     }
     
-        renderMaker.hideLoadBtn()
+        // renderMaker.hideLoadBtn()
         api.fetchImages().then(data => renderMaker.renderImages(data.hits))
         api.incrementPage()
-        renderMaker.showLoadBtn()
+        // renderMaker.showLoadBtn()
 }
     
