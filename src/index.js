@@ -1,6 +1,7 @@
 import ApiService from "./js/apiService"
 import renderService from "./js/renderService"
 import Notiflix from "notiflix"
+import { debounce } from "lodash"
 
 
 const api = new ApiService()
@@ -15,6 +16,22 @@ const refs = {
 
 refs.form.addEventListener('submit', renderImage)
 refs.loadMoreBtn.addEventListener('click', loadMore)
+
+
+function  onScroll() {  
+  const height = document.body.offsetHeight
+  const screenHeight = window.innerHeight
+
+  const scrolled = window.scrollY
+
+  const threshold = height - screenHeight / 4
+
+  const position = scrolled + screenHeight
+
+    if (position >= threshold) {
+      loadMore()
+  }
+}
 
 function renderImage(e) {
     e.preventDefault()
@@ -37,10 +54,12 @@ function renderImage(e) {
             renderMaker.renderImages(data.hits)
             api.incrementPage()
             renderMaker.showLoadBtn()
+            window.addEventListener('scroll', debounce(onScroll, 500))
         })     
     }
         
 function loadMore() {
+  
     if (api.totalHits < 0) {
             renderMaker.hideLoadBtn()
             return Notiflix.Notify.info('We&#x60;re sorry, but you&#x60;ve reached the end of search results.')
@@ -50,7 +69,5 @@ function loadMore() {
         api.fetchImages().then(data => renderMaker.renderImages(data.hits))
         api.incrementPage()
         renderMaker.showLoadBtn()
-    }
-
-
-
+}
+    
