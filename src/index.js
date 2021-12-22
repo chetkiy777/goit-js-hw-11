@@ -38,7 +38,7 @@ function  onScroll() {
 function renderImage(e) {
     
     e.preventDefault()
-    toggleLoader()
+
     api.resetPage()
     // renderMaker.hideLoadBtn()
     api.searchQuery = e.currentTarget.elements.searchQuery.value.trim()
@@ -55,7 +55,6 @@ function renderImage(e) {
                 return Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')    
             }
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
-            toggleLoader()
             renderMaker.renderImages(data.hits)
             api.incrementPage()
 
@@ -70,17 +69,11 @@ function loadMore() {
         // renderMaker.hideLoadBtn()
         return Notiflix.Notify.info('We&#x60;re sorry, but you&#x60;ve reached the end of search results.')
     }
-    toggleLoader()
     // renderMaker.hideLoadBtn()
     api.fetchImages().then(data => {
-        toggleLoader()
         renderMaker.renderImages(data.hits)
         api.incrementPage()
     })
-}
-
-function toggleLoader() {
-    refs.preloader.classList.toggle('is-hidden')
 }
 
     
