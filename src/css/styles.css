@@ -152,3 +152,20 @@ a {
 .is-hidden {
   display: none;
 }
+
+.backdrop {
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+  background-color: rgba(228, 233, 237, 0.8);
+}
+
+.loader {
+  position: absolute;
+  height: 120px;
+  width: 120px;
+
+  top: 40%;
+  left: 45%;
+}

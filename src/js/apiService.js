@@ -51,7 +51,6 @@ export default class ApiService {
         return await instance.get(`?key=${this._apiKey}&q=${this.searchQuery}&page=${this.page}&per_page=${this.per_page}&image_type=photo&orientation=horizontal&safesearch=true`)
             .then(response => {
                 this.hits = response.data.totalHits
-
                 this.decrementTotalHits()
                 return response.data
             }

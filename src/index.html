@@ -9,6 +9,12 @@
   </head>
   <body>
 
+    <div class="backdrop is-hidden" data-loader>
+      <div class="loader">
+        <img src="images/126.svg" alt="preloader">
+      </div>
+    </div>
+
     <header class="header">
       <form class="search-form" id="search-form">
         <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
@@ -16,15 +22,8 @@
       </form>
     </header>
 
-    
+    <div class="gallery"></div>
 
-    <div class="gallery">
-
-    </div>
-
-    <div class="loader is-hidden" data-loader>
-      <img src="./images/126.svg" alt="loader">
-    </div>
 <!-- 
     <button type="button" class="load-more is-hidden" data-load>Показать ещё...</button> -->
 

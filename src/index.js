@@ -2,7 +2,7 @@ import ApiService from "./js/apiService"
 import renderService from "./js/renderService"
 import Notiflix from "notiflix"
 import { debounce } from "lodash"
-// import preloader from "./js/preloader"
+
 
 
 const api = new ApiService()
@@ -13,7 +13,7 @@ const refs = {
     // loadMoreBtn: document.querySelector('.load-more'),
     galleryContainer: document.querySelector('.gallery'),
     fetchDataBtn: document.querySelector('[data-load="getData"]'),
-    preloader: document.querySelector('[data-loader]'),
+    loader: document.querySelector('[data-loader]'),
 }
 
 refs.form.addEventListener('submit', renderImage)
@@ -40,7 +40,7 @@ function renderImage(e) {
     e.preventDefault()
 
     api.resetPage()
-    // renderMaker.hideLoadBtn()
+    
     api.searchQuery = e.currentTarget.elements.searchQuery.value.trim()
     
     if (api.searchQuery === '') {
@@ -48,13 +48,14 @@ function renderImage(e) {
     }
     
     renderMaker.clearGallery()
-
+    toggleLoader()
     api.fetchImages()
         .then(data => {
             if (data.totalHits === 0) {
                 return Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')    
             }
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
+            toggleLoader()
             renderMaker.renderImages(data.hits)
             api.incrementPage()
 
@@ -70,10 +71,16 @@ function loadMore() {
         return Notiflix.Notify.info('We&#x60;re sorry, but you&#x60;ve reached the end of search results.')
     }
     // renderMaker.hideLoadBtn()
-    api.fetchImages().then(data => {
+        toggleLoader()
+        api.fetchImages().then(data => {
+            toggleLoader()
         renderMaker.renderImages(data.hits)
         api.incrementPage()
     })
+}
+
+function toggleLoader() {
+    refs.loader.classList.toggle('is-hidden')
 }
 
     
