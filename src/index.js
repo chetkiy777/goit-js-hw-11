@@ -44,7 +44,7 @@ function renderImage(e) {
     api.searchQuery = e.currentTarget.elements.searchQuery.value.trim()
     
     if (api.searchQuery === '') {
-        return
+        return Notiflix.Notify.warning('please enter more query to find!')
     }
     
     renderMaker.clearGallery()

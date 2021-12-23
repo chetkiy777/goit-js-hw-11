@@ -1,4 +1,5 @@
 import axios from "axios";
+import { reject } from "lodash";
 import Notiflix from "notiflix";
 
 const instance = axios.create({
